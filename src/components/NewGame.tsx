@@ -41,19 +41,21 @@ function NewGame() {
           });
 
           const json = await resp.json();
+
           //modify resp.ok to save the token locally
           if (resp.ok) {
             setToken(json.data.token);
             localStorage.setItem("token", json.data.token); //save token locally
+            console.log("Saved token:", localStorage.getItem("token"));
           }
 
           setResp(JSON.stringify(json, null, 2));
         }}
       />
       <pre>API token: {token}</pre>
+
       <pre>Response: {resp}</pre>
     </>
   );
 }
-
 export default NewGame;

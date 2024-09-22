@@ -4,7 +4,7 @@ import NewGame from "./components/NewGame";
 function App() {
   return (
     <>
-      <h1>STQS</h1>
+      <h1>SpaceTraders!</h1>
       <NewGame />
     </>
   );
