@@ -13,7 +13,9 @@ function NewGame() {
   return (
     <>
       <h1>New Game</h1>
+      <label htmlFor="symbol">Symbol</label>
       <input
+        id="symbol"
         name="symbol"
         value={form.symbol}
         onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
@@ -25,6 +27,7 @@ function NewGame() {
       />
       <input
         type="submit"
+        value="Submit"
         onClick={async () => {
           const resp = await fetch("https://api.spacetraders.io/v2/register", {
             method: "POST",

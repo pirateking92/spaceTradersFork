@@ -1,30 +1,69 @@
-import { it, expect, vi, describe, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { it, expect, vi, describe } from "vitest";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import NewGame from "./components/NewGame";
+import userEvent from "@testing-library/user-event";
 
-// original single test that was already here
-it("renders", async () => {
-  // Arrange
-  render(<NewGame />);
+// original single test that was already her
+describe("original test from beginning", () =>
+  it("renders", async () => {
+    // Arrange
+    render(<NewGame />);
 
-  // Act
-  await screen.findByRole("heading");
+    // Act
+    await screen.findByRole("heading");
 
-  // Assert
-  expect(screen.getByRole("heading")).toHaveTextContent("New Game");
-});
+    // Assert
+    expect(screen.getByRole("heading")).toHaveTextContent("New Game");
+  }));
 
-// test for successful api response. can also get that the token has been added and saved.
-// mocks the fetch function
-global.fetch = vi.fn();
+// generating random 5 character string for username input
+const generateRandomUser = () => {
+  return Math.random().toString(36).substring(2, 7).toUpperCase();
+};
 
-describe('NewGame component', () => {
-  beforeEach(() => {
-    vi.resetAllMocks();
+describe("NewGame response", () => {
+  it("calls the API with a random username and receives relevant data", async () => {
+    // Mock the fetch function to simulate the API response
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ data: { token: "test-token" } }),
+      })
+    );
+
+    // Generate a random user and render the component
+    const randomUser = generateRandomUser();
+    // render(<NewGame />);
+
+    // Find the input fields
+    const symbolInput = screen.getByLabelText(/symbol/i);
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    // Simulate user input by typing the random user into the symbol input
+    fireEvent.change(symbolInput, { target: { value: randomUser } });
+
+    // Simulate clicking the submit button
+    fireEvent.click(submitButton);
+
+    // Wait for the fetch request to resolve and verify the expected outcome
+    await waitFor(() => {
+      // Check that fetch was called with the correct API endpoint and body
+      expect(global.fetch).toHaveBeenCalledWith(
+        "https://api.spacetraders.io/v2/register",
+        expect.objectContaining({
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            symbol: randomUser,
+            faction: "COSMIC",
+          }),
+        })
+      );
+
+      // Check that the token is displayed in the component
+      expect(screen.getByText(/API token: test-token/i)).toBeInTheDocument();
+    });
   });
-})
-it("successful API response and stores the API token when a new user has been added", async () => {
-  render(<NewGame />);
-
-  await screen.
 });
