@@ -41,9 +41,10 @@ function NewGame() {
           });
 
           const json = await resp.json();
-
+          //modify resp.ok to save the token locally
           if (resp.ok) {
             setToken(json.data.token);
+            localStorage.setItem("token", json.data.token); //save token locally
           }
 
           setResp(JSON.stringify(json, null, 2));
