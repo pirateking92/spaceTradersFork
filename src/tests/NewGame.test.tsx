@@ -1,12 +1,17 @@
 import { it, expect, vi, describe } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import NewGame from "../components/NewGame";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // original single test that was already her
 describe("original test from beginning", () =>
   it("renders", async () => {
     // Arrange
-    render(<NewGame />);
+    render(
+      <Router>
+        <NewGame />
+      </Router>
+    );
 
     // Act
     await screen.findByRole("heading");
@@ -76,9 +81,9 @@ describe("NewGame response", () => {
   });
 });
 
-// ADD THIS AFTER SOME NEW FEATURES
-describe("Error Verification", () => {
-  it("", async () => {
-    render(<NewGame />);
-  });
-});
+// // ADD THIS AFTER SOME NEW FEATURES
+// describe("Error Verification", () => {
+//   it("", async () => {
+//     render(<NewGame />);
+//   });
+// });

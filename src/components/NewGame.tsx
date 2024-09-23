@@ -41,7 +41,6 @@ function NewGame() {
   return (
     <>
       <h1>New Game</h1>
-
       <p>
         <label htmlFor="Agent Name">Agent Name</label>
         <input
@@ -51,24 +50,23 @@ function NewGame() {
           onChange={(e) => setForm({ ...form, symbol: e.currentTarget.value })}
         />
       </p>
-
       <label htmlFor="faction">Faction</label>
       <input
         name="faction"
         value={form.faction}
         onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })}
       />
-
       <input type="submit" value="Submit" onClick={handleSubmit} />
-
-      <p>Please save this API token somewhere safe! It is needed for login and you won't see it again!</p>
-
+      <p>
+        Please save this API token somewhere safe! It is needed for login and
+        you won't see it again!
+      </p>
       <pre>API Token: {token}</pre> {/* Display token after it's received */}
-
       {token && (
-        <button onClick={handleContinue}>Continue</button> /* Show only if token exists */
+        <button onClick={handleContinue}>
+          Continue
+        </button> /* Show only if token exists */
       )}
-
       {/* <pre>Response: {resp}</pre> */}
     </>
   );

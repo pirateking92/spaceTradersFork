@@ -19,8 +19,6 @@ function MyAgent() {
   useEffect(() => {
     const token = location.state?.token;
 
-    console.log("THIS IS THE TOKEN:", token);
-
     if (token) {
       const options = {
         headers: {
@@ -32,18 +30,14 @@ function MyAgent() {
       fetch("https://api.spacetraders.io/v2/my/agent", options)
         .then((response) => response.json())
         .then((response) => {
-          console.log(response); // Log the response to inspect the structure
           setData(response); // Set the data
         })
         .catch((err) => console.error(err));
     }
-  }, []);
+  }, [location.state?.token]);
 
   // Data exists, check if agent exists
   const agent = data?.data;
-
-  console.log("what is in data:", data);
-  console.log("ACCOUNT ID:", data?.data.accountId);
 
   if (!agent) {
     return <div>No agent data available</div>;
@@ -75,7 +69,7 @@ function MyAgent() {
       </div>
       <div>
         <label htmlFor="starting-faction">Starting Faction:</label>
-        <select id="starting-faction" value={agent.startingFaction} readOnly>
+        <select id="starting-faction" value={agent.startingFaction}>
           <option value="COSMIC">COSMIC</option>
           {/* Add more options as needed */}
         </select>
