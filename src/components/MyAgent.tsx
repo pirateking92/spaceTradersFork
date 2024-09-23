@@ -48,16 +48,23 @@ function MyAgent() {
   return (
     <>
       <h1>My Agent</h1>
+      <div></div>
       <div>
-        <label htmlFor="account-id">Account ID:</label>
+        <label className="text-white" htmlFor="account-id">
+          Account ID:
+        </label>
         <input id="account-id" type="text" value={agent.accountId} readOnly />
       </div>
       <div>
-        <label htmlFor="symbol">Symbol:</label>
+        <label className="text-white" htmlFor="symbol">
+          Symbol:
+        </label>
         <input id="symbol" type="text" value={agent.symbol} readOnly />
       </div>
       <div>
-        <label htmlFor="headquarters">Headquarters:</label>
+        <label className="text-white" htmlFor="headquarters">
+          Headquarters:
+        </label>
         <input
           id="headquarters"
           type="text"
@@ -66,18 +73,24 @@ function MyAgent() {
         />
       </div>
       <div>
-        <label htmlFor="credits">Credits:</label>
+        <label className="text-white" htmlFor="credits">
+          Credits:
+        </label>
         <input id="credits" type="number" value={agent.credits} readOnly />
       </div>
       <div>
-        <label htmlFor="starting-faction">Starting Faction:</label>
+        <label className="text-white" htmlFor="starting-faction">
+          Starting Faction:
+        </label>
         <select id="starting-faction" value={agent.startingFaction}>
           <option value="COSMIC">COSMIC</option>
           {/* Add more options as needed */}
         </select>
       </div>
       <div>
-        <label htmlFor="ship-count">Ship Count:</label>
+        <label className="text-white" htmlFor="ship-count">
+          Ship Count:
+        </label>
         <input id="ship-count" type="number" value={agent.shipCount} readOnly />
       </div>
 

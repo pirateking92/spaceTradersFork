@@ -65,41 +65,18 @@ function ViewLocation() {
     }
   });
   return (
-    <>
+    <div>
       <h1>View Location</h1>
-      <div>
-        <label htmlFor="account-id">Account ID:</label>
-        <input id="account-id" type="text" value={agent.accountId} readOnly />
-      </div>
-      <div>
-        <label htmlFor="symbol">Symbol:</label>
-        <input id="symbol" type="text" value={agent.symbol} readOnly />
-      </div>
-      <div>
-        <label htmlFor="headquarters">Headquarters:</label>
-        <input
-          id="headquarters"
-          type="text"
-          value={agent.headquarters}
-          readOnly
-        />
-      </div>
-      <div>
-        <label htmlFor="credits">Credits:</label>
-        <input id="credits" type="number" value={agent.credits} readOnly />
-      </div>
-      <div>
-        <label htmlFor="starting-faction">Starting Faction:</label>
-        <select id="starting-faction" value={agent.startingFaction}>
-          <option value="COSMIC">COSMIC</option>
-          {/* Add more options as needed */}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="ship-count">Ship Count:</label>
-        <input id="ship-count" type="number" value={agent.shipCount} readOnly />
-      </div>
-    </>
+      {waypointData ? (
+        <div>
+          <h2>Waypoint Data</h2>
+          {/* Render the waypoint data here */}
+          <pre>{JSON.stringify(waypointData, null, 2)}</pre>
+        </div>
+      ) : (
+        <p>Loading waypoint data...</p>
+      )}
+    </div>
   );
 }
 

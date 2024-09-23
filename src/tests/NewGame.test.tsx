@@ -1,6 +1,6 @@
 import { it, expect, vi, describe } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import NewGame from "../components/NewGame";
+import NewGame from "../components/StartPage";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // original single test that was already her
@@ -17,7 +17,7 @@ describe("original test from beginning", () =>
     await screen.findByRole("heading");
 
     // Assert
-    expect(screen.getByRole("heading")).toHaveTextContent("New Game");
+    expect(screen.getByRole("heading")).toHaveTextContent("SPAAAACE");
   }));
 
 // generating random 5 character string for username input

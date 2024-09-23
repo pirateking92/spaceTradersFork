@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // for routing
 
-function NewGame() {
+function StartPage() {
   const navigate = useNavigate();
   const [token, setToken] = useState(""); // Store the token
   const [resp, setResp] = useState("");
@@ -40,7 +40,7 @@ function NewGame() {
 
   return (
     <>
-      <h1>New Game</h1>
+      <h1 className="text-blue-600 text-3xl center">SPAAAACE</h1>
       <p>
         <label htmlFor="Agent Name">Agent Name</label>
         <input
@@ -57,13 +57,17 @@ function NewGame() {
         onChange={(e) => setForm({ ...form, faction: e.currentTarget.value })}
       />
       <input type="submit" value="Submit" onClick={handleSubmit} />
-      <p>
+      <p className="text-white">
         Please save this API token somewhere safe! It is needed for login and
         you won't see it again!
       </p>
-      <pre>API Token: {token}</pre> {/* Display token after it's received */}
+      <pre className="text-white">API Token: {token}</pre>{" "}
+      {/* Display token after it's received */}
       {token && (
-        <button onClick={handleContinue}>
+        <button
+          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          onClick={handleContinue}
+        >
           Continue
         </button> /* Show only if token exists */
       )}
@@ -72,4 +76,4 @@ function NewGame() {
   );
 }
 
-export default NewGame;
+export default StartPage;
