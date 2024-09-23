@@ -1,5 +1,5 @@
 import { it, expect, describe, vi, beforeEach } from "vitest";
-import MyAgent from "../components/MyAgent";
+import ViewLocation from "../components/ViewLocation";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
@@ -14,7 +14,7 @@ vi.mock("react-router-dom", async () => {
 });
 const startToken = import.meta.env.VITE_TOKEN;
 console.log("token for mocking:", startToken);
-describe("MyAgent component", () => {
+describe("ViewLocation component", () => {
   beforeEach(() => {
     // Set up the mock implementation for useLocation before each test
     vi.mocked(reactRouterDom.useLocation).mockReturnValue({
@@ -26,13 +26,9 @@ describe("MyAgent component", () => {
     });
   });
 
-  it("renders MyAgent", async () => {
-    render(
-      <Router>
-        <ViewLocation />
-      </Router>
-    );
+  it("renders Location", async () => {
+    render(<ViewLocation />);
     await screen.findByRole("heading");
-    expect(screen.getByRole("heading")).toHaveTextContent("Location");
+    expect(screen.getByRole("heading")).toHaveTextContent("View Location");
   });
 });

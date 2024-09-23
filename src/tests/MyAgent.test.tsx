@@ -12,11 +12,12 @@ vi.mock("react-router-dom", async () => {
     useLocation: vi.fn(),
   };
 });
+
 const startToken = import.meta.env.VITE_TOKEN;
-console.log("token for mocking:", startToken);
+
 describe("MyAgent component", () => {
   beforeEach(() => {
-    // Set up the mock implementation for useLocation before each test
+    // Mock useLocation for all tests
     vi.mocked(reactRouterDom.useLocation).mockReturnValue({
       state: { token: startToken },
       pathname: "",
@@ -24,79 +25,41 @@ describe("MyAgent component", () => {
       hash: "",
       key: "",
     });
+    // render only needs to be called once
+    render(
+      <Router>
+        <MyAgent />
+      </Router>
+    );
   });
 
+  const checkInputValue = async (
+    label: string,
+    expectedValue: string | number
+  ) => {
+    const input = await screen.findByLabelText(label);
+    expect(input).toHaveValue(expectedValue);
+  };
+  // refactored tests to be more concise
   it("renders MyAgent", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByRole("heading");
-    expect(screen.getByRole("heading")).toHaveTextContent("My Agent");
+    const heading = await screen.findByRole("heading");
+    expect(heading).toHaveTextContent("My Agent");
   });
 
-  it("displays account ID", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByLabelText("Account ID:");
-    expect(screen.getByLabelText("Account ID:")).toHaveValue(
-      "cm1evsit7by5vs60c0kevm62s"
-    ); // Adjust expected value as needed
-  });
+  it("displays account ID", () =>
+    checkInputValue("Account ID:", "cm1evsit7by5vs60c0kevm62s"));
 
-  it("displays symbol", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByLabelText("Symbol:");
-    expect(screen.getByLabelText("Symbol:")).toHaveValue("JAGEXTASK");
-  });
+  it("displays symbol", () => checkInputValue("Symbol:", "JAGEXTASK"));
 
-  it("displays headquarters", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByLabelText("Headquarters:");
-    expect(screen.getByLabelText("Headquarters:")).toHaveValue("X1-N57-A1");
-  });
+  it("displays headquarters", () =>
+    checkInputValue("Headquarters:", "X1-N57-A1"));
 
-  it("displays credits", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByLabelText("Credits:");
-    expect(screen.getByLabelText("Credits:")).toHaveValue(175000);
-  });
+  it("displays credits", () => checkInputValue("Credits:", 175000));
 
   it("displays starting faction", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByLabelText("Starting Faction:");
-    expect(screen.getByLabelText("Starting Faction:")).toHaveDisplayValue(
-      "COSMIC"
-    ); // Adjust based on the value you expect
+    const select = await screen.findByLabelText("Starting Faction:");
+    expect(select).toHaveDisplayValue("COSMIC");
   });
 
-  it("displays ship count", async () => {
-    render(
-      <Router>
-        <MyAgent />
-      </Router>
-    );
-    await screen.findByLabelText("Ship Count:");
-    expect(screen.getByLabelText("Ship Count:")).toHaveValue(2);
-  });
+  it("displays ship count", () => checkInputValue("Ship Count:", 2));
 });

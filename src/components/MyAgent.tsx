@@ -31,6 +31,8 @@ function MyAgent() {
         .then((response) => response.json())
         .then((response) => {
           setData(response); // Set the data
+          const startLocation = response.data.startLocation;
+          localStorage.setItem("startLocation", startLocation);
         })
         .catch((err) => console.error(err));
     }
