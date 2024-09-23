@@ -1,7 +1,6 @@
 import { it, expect, vi, describe } from "vitest";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import NewGame from "../components/NewGame";
-import userEvent from "@testing-library/user-event";
 
 // original single test that was already her
 describe("original test from beginning", () =>
@@ -42,7 +41,7 @@ describe("NewGame response", () => {
     const randomUser = generateRandomUser();
 
     // Find the input fields
-    const symbolInput = screen.getByLabelText(/symbol/i);
+    const symbolInput = screen.getByLabelText("Agent Name");
     const submitButton = screen.getByRole("button", { name: /submit/i });
 
     // Simulate user input by typing the random user into the symbol input
@@ -72,7 +71,7 @@ describe("NewGame response", () => {
       expect(localStorage.setItem).toHaveBeenCalledWith("token", "test-token");
 
       // Check that the token is displayed in the component
-      expect(screen.getByText(/API token: test-token/i)).toBeInTheDocument();
+      expect(screen.getByText(/token: test-token/i)).toBeInTheDocument();
     });
   });
 });
