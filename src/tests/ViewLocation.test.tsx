@@ -24,11 +24,16 @@ describe("ViewLocation component", () => {
       hash: "",
       key: "",
     });
+    render(<ViewLocation />);
   });
 
-  it("renders Location", async () => {
-    render(<ViewLocation />);
+  it("renders Location page", async () => {
     await screen.findByRole("heading");
     expect(screen.getByRole("heading")).toHaveTextContent("View Location");
+  });
+
+  it("shows the x and y coordinates of the starting location", async () => {
+    await screen.findByAltText("x coordinate");
+    expect(screen.getByAltText("x coordinate")).toHaveTextContent("X");
   });
 });

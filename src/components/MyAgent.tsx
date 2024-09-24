@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type TokenResponse = {
   data: {
@@ -15,9 +15,11 @@ type TokenResponse = {
 function MyAgent() {
   const [data, setData] = useState<TokenResponse | null>(null);
   const location = useLocation();
+  const navigate = useNavigate(); // would like to eventually move these over to their own helper files
 
   useEffect(() => {
     const token = location.state?.token;
+    console.log("AGENT TOKEN:", token);
 
     if (token) {
       const options = {
@@ -31,7 +33,8 @@ function MyAgent() {
         .then((response) => response.json())
         .then((response) => {
           setData(response); // Set the data
-          const startLocation = response.data.startLocation;
+          const startLocation = response.data.headquarters;
+          console.log("startLocation in MyAgent:", startLocation); // Verify startLocation
           localStorage.setItem("startLocation", startLocation);
         })
         .catch((err) => console.error(err));
@@ -44,6 +47,19 @@ function MyAgent() {
   if (!agent) {
     return <div>No agent data available</div>;
   }
+
+  // function to navigate to ViewLocation. Use for navbar
+  const handleViewLocation = () => {
+    const token = location.state?.token;
+    const startLocation = localStorage.getItem("startLocation");
+    console.log("token data:", token);
+    console.log("startlocation data:", startLocation);
+    if (token && startLocation) {
+      navigate("/viewLocation", { state: { token, startLocation } });
+    } else {
+      console.error("Token and/or startLocation missing");
+    }
+  };
 
   return (
     <>
@@ -94,7 +110,15 @@ function MyAgent() {
         <input id="ship-count" type="number" value={agent.shipCount} readOnly />
       </div>
 
-      {/* Add more fields for contracts, faction, ship data, etc. */}
+      {/* Show "View Location" button if agent data exists */}
+      {agent && (
+        <button
+          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mt-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          onClick={handleViewLocation}
+        >
+          View Location
+        </button>
+      )}
     </>
   );
 }
