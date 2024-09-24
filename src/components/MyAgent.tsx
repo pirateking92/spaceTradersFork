@@ -63,7 +63,7 @@ function MyAgent() {
 
   return (
     <>
-      <h1>My Agent</h1>
+      <h1 className="text-white text text-3xl font-semibold">My Agent</h1>
       <div></div>
       <div>
         <label className="text-white" htmlFor="account-id">
@@ -85,7 +85,7 @@ function MyAgent() {
           id="headquarters"
           type="text"
           value={agent.headquarters}
-          readOnly
+          // readOnly
         />
       </div>
       <div>

@@ -1,43 +1,45 @@
-# STQS
+# SpaceTraders
 
-## Goal
+A simple web application using the spacetraders.io api into a basic, interactable UI.
+A new user can be registered, the information of the user (the agent) can be seen, and then the starting location can be viewed along with some extra information about the contract given at the start of the game.
+The application was completely test driven with vitest.
 
-Your goal is to visit [SpaceTraders.io](https://docs.spacetraders.io/quickstart/new-game) and implement as many features from the quickstart as you feel able to.
+![Screenshot]() // GET A SCREENSHOT AT THE END
 
-> SpaceTraders is a fun, free game driven entirely through API interactions. It is not affiliated with us in any way, so please ensure you abide by their [rate limits](https://docs.spacetraders.io/api-guide/rate-limits).
+## Table of Contents
 
-## Delivery
+- [SpaceTraders](#spacetraders)
+  - [Table of Contents](#table-of-contents)
+  - [Installation and Usage](#installation-and-usage)
+  - [Tests](#tests)
+  - [Design Choices and Future Thoughts](#design-choices-and-future-thoughts)
 
-We have scaffolded a small project (this repo) to get you started. It contains everything you need to run and work on your quickstart. We will be running it when we receive your submission, so please ensure it works and contains any additional information we need to run it.
+## Installation and Usage
 
-On completion, return the repository to us, either zipped as an attachment or uploaded to a Git hosting service.
+Make sure that the following are installed for this project:
 
-## Tips
+- **Node.js and npm**
+- Visit the official Node.js website (<https://nodejs.org>) and download the latest LTS (Long Term Support) version for your operating system.
+- Once downloaded, run the installer and follow the on-screen instructions to complete the installation.
+- After installation, you can verify that Node.js and npm are installed by running `node -v` and `npm -v` in your terminal or command prompt.
 
-We suggest focusing on a quality **vertical slice**, rather than lots of functionality. Consider this an opportunity to show us how you might approach building an application, which you will then have the chance to walk us through later. You do not need to build a large application - focus on demonstrating experience over feature completion.
+- run `npm ci` to install dependencies from package.json
+- `npm run dev` and navigate to <http://localhost:5173/> in your preferred browser
 
-Areas we will be looking to discuss include:
+## Tests
 
-- How you structure your code
-- Idiomatic use of React and ECMAScript
-- How you use the type system to build confidence in your code
-- Performance considerations when dealing with side effects and state
-- How styling is organized and applied (we don't expect you to be a designer, so don't worry about aesthetic choices)
-- How you use source code management (Git) to segment your changes
+from the main `stqs-main` folder, and then run
 
-We have implemented the very first part of the quickstart here to get you moving (see `NewGame.tsx`), but how you structure things (and how you present the user interface) is entirely up to you.
+`npm test`
 
-## Requirements
+- to run vitest and the tests
 
-NodeJS 18+
-NPM
+## Design Choices and Future Thoughts
 
-## Running
+Learning from some previous mistakes on personal projects, I took time at the beginning to properly look through the examples on the SpaceTraders website, play the game, read through the starter code, and plan out tests.
 
-`npm ci`
-`npm run dev`
-See `package.json` for more details on available scripts.
+I made the choice to test drive the application, as previous experience from Makers and from a successful project showed that it meant that proper planning was done for features, edge cases are thought of, and generally creates a satisfying process.
 
-## Exercise
+As per the instructions, I worked through as much of the quickstart as time allowed, with a focus on creating a robust vertical slice application, that is tested, intuitive to navigate through, and easy on api calls. I used TailwindCSS for styling as I have found this easy to learn, read and implement across a number of projects. If I had more time, I would have liked to do more styling, though having it work feels to be the most important at the beginning.
 
-Run the project (or read `./src/App.tsx`) for details of the exercise.
+I would have also liked to add some testing with an automation tool such as Cypress, as I have played around with these before and would have liked to improve my skills with an automation tool, simulate a user interaction, and also because it was quite fun and satisfying to see the program go through a set of actions.
