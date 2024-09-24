@@ -6,10 +6,8 @@
     label {
         @apply text-gray-400;
     }
-    body {
-        @apply p-20;
-    }
 }
+
 @layer utilities {
   .bg-black-to-navy {
     background-image: linear-gradient(to bottom right, #000000, #191932);
@@ -18,8 +16,11 @@
 
 body {
   @apply font-sans bg-black-to-navy;
-
   min-height: 100vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+.main-content {
+  @apply p-20;
 }
