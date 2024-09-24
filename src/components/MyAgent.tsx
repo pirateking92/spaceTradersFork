@@ -50,7 +50,7 @@ function MyAgent() {
 
   // function to navigate to ViewLocation. Use for navbar
   const handleViewLocation = () => {
-    const token = location.state?.token;
+    const token = localStorage.getItem("token");
     const startLocation = localStorage.getItem("startLocation");
     console.log("token data:", token);
     console.log("startlocation data:", startLocation);

@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 
 function ConditionalNavbar() {
   const location = useLocation();
+  console.log("Current path:", location.pathname);
   const showNavbar = ["/myagent", "/viewlocation"].includes(location.pathname);
 
   return showNavbar ? <Navbar /> : null;

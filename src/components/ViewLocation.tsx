@@ -35,7 +35,7 @@ function ViewLocation() {
   const location = useLocation();
 
   useEffect(() => {
-    const token = location.state?.token;
+    const token = localStorage.getItem("token");
     const startLocation = localStorage.getItem("startLocation");
     if (token && startLocation) {
       const parts = startLocation.split("-");
