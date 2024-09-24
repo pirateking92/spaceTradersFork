@@ -92,6 +92,7 @@ function ViewLocation() {
     chart,
     isUnderConstruction,
   } = waypointData.data;
+  console.log("waypoint data:", waypointData.data);
 
   return (
     <div className="text-gray-400">

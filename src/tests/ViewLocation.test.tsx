@@ -12,10 +12,16 @@ vi.mock("react-router-dom", async () => {
     useLocation: vi.fn(),
   };
 });
-const startToken = import.meta.env.VITE_TOKEN;
+const startToken = "mocked-token"; //import.meta.env.VITE_TOKEN;
 console.log("token for mocking:", startToken);
+const mockStartLocation = "X1-DF55-20250Z";
+
 describe("ViewLocation component", () => {
   beforeEach(() => {
+    vi.spyOn(window.localStorage, "getItem").mockImplementation((key) => {
+      if (key === "startLocation") return mockStartLocation;
+      return null;
+    });
     // Set up the mock implementation for useLocation before each test
     vi.mocked(reactRouterDom.useLocation).mockReturnValue({
       state: { token: startToken },
@@ -24,7 +30,11 @@ describe("ViewLocation component", () => {
       hash: "",
       key: "",
     });
-    render(<ViewLocation />);
+    render(
+      <Router>
+        <ViewLocation />
+      </Router>
+    );
   });
 
   it("renders Location page", async () => {
