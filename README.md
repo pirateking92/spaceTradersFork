@@ -3,6 +3,7 @@
 A simple web application using the spacetraders.io api into a basic, interactable UI.
 A new user can be registered, the information of the user (the agent) can be seen, and then the starting location can be viewed along with some extra information about the contract given at the start of the game.
 The application was completely test driven with vitest.
+Hope to speak more about this as it was quite enjoyable to go through! Thanks very much!
 
 ![Screenshot](src/assets/spacetraders.png?raw=true "viewlocation page")
 

@@ -3,6 +3,27 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import NewGame from "../components/StartPage";
 import { BrowserRouter as Router } from "react-router-dom";
 
+const createMockResponse = (data: any) => {
+  return {
+    ok: true,
+    json: () => Promise.resolve(data),
+    headers: new Headers(),
+    redirected: false,
+    status: 200,
+    statusText: "OK",
+    type: "basic" as ResponseType,
+    url: "https://api.spacetraders.io/v2/register",
+    clone: function () {
+      return this;
+    },
+    body: null,
+    bodyUsed: false,
+    arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+    blob: () => Promise.resolve(new Blob()),
+    formData: () => Promise.resolve(new FormData()),
+    text: () => Promise.resolve(JSON.stringify(data)),
+  };
+};
 // original single test that was already her
 describe("original test from beginning", () =>
   it("renders", async () => {

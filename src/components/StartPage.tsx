@@ -6,9 +6,10 @@ function StartPage() {
   const [token, setToken] = useState(""); // Store the token
   const [resp, setResp] = useState("");
   const [form, setForm] = useState({ symbol: "", faction: "COSMIC" });
+  console.log(resp);
 
   // Handle form submission and agent registration
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault(); // Prevent default form submission behavior
     const resp = await fetch("https://api.spacetraders.io/v2/register", {
       method: "POST",
@@ -38,7 +39,7 @@ function StartPage() {
   };
 
   // Handle pressing Enter to submit form
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: { key: string; preventDefault: () => void }) => {
     if (e.key === "Enter") {
       e.preventDefault(); // Prevent default form submission behavior
       handleSubmit(e); // Call the handleSubmit function when Enter is pressed
