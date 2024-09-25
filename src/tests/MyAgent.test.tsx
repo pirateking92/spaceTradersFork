@@ -8,7 +8,7 @@ import * as reactRouterDom from "react-router-dom";
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
   return {
-    ...actual,
+    ...(actual || {}), // has error but still works
     useLocation: vi.fn(),
   };
 });

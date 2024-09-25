@@ -1,6 +1,6 @@
 import { it, expect, describe, vi, beforeEach, afterEach } from "vitest";
 import ViewLocation from "../components/ViewLocation";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
 
@@ -8,13 +8,14 @@ import * as reactRouterDom from "react-router-dom";
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
   return {
-    ...actual,
+    ...(actual as object), // was giving type error due to having been undefined
     useLocation: vi.fn(),
   };
 });
 
-const startToken = import.meta.env.VITE_TOKEN;
-const mockStartLocation = "X1-DF55-20250Z";
+const startToken = import.meta.env.VITE_TOKEN; // imports fine
+const mockStartLocation = "X1-DF55-20250Z"; // needs to be caps
+// not coming through
 const mockWaypointData = {
   data: {
     systemSymbol: "X1-DF55",
@@ -38,14 +39,14 @@ const mockWaypointData = {
 describe("ViewLocation component", () => {
   beforeEach(() => {
     // Mock localStorage to return the start location and token
-    vi.spyOn(window.localStorage, "getItem").mockImplementation((key) => {
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation((key) => {
       if (key === "startLocation") return mockStartLocation;
       if (key === "token") return startToken;
       return null;
     });
 
     // Mock the useLocation hook
-    vi.spyOn(reactRouterDom, "useLocation").mockReturnValue({
+    vi.mocked(reactRouterDom.useLocation).mockReturnValue({
       state: { token: startToken },
       pathname: "",
       search: "",
@@ -53,35 +54,26 @@ describe("ViewLocation component", () => {
       key: "",
     });
 
-    // Mock the fetch API to return mock waypoint data
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockWaypointData),
-      })
-    );
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockWaypointData),
+    });
+  });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("renders Location page and shows coordinates", async () => {
     render(
       <Router>
         <ViewLocation />
       </Router>
     );
-  });
 
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("renders Location page", async () => {
-    await screen.findByRole("heading", { name: /view location/i });
-    expect(
-      screen.getByRole("heading", { name: /view location/i })
-    ).toHaveTextContent("View Location");
-  });
-
-  it("shows the x and y coordinates of the starting location", async () => {
-    // Wait for the coordinates to appear on the screen
-    await screen.findByText(/\(123, 456\)/); // coordinates are rendered in the form "(x, y)"
-    expect(screen.getByText(/\(123, 456\)/)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/View Location/)).toBeInTheDocument();
+      expect(screen.getByText(/\(123, 456\)/)).toBeInTheDocument();
+    });
   });
 });
