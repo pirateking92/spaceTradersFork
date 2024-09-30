@@ -14,6 +14,7 @@ vi.mock("react-router-dom", async () => {
 });
 
 const startToken = import.meta.env.VITE_TOKEN;
+console.log("ENV TOKEN:", startToken);
 
 describe("MyAgent component", () => {
   beforeEach(() => {
